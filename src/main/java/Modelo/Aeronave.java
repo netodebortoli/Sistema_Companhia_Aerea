@@ -1,6 +1,6 @@
 package Modelo;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 /**
  *
@@ -8,18 +8,28 @@ import java.time.LocalDate;
  */
 public class Aeronave {
 
+    private int id_aeronave;
     private int cod;
-    private LocalDate dataAquisicao;
-    private LocalDate dataAposentadoriao;
+    private Date dataAquisicao;
+    private Date dataAposentadoriao;
     private boolean emAtividade;
     private Modelo modelo;
 
-    public Aeronave(int cod, LocalDate dataAquisicao, LocalDate dataAposentadoriao, boolean emAtividade, Modelo modelo) {
+    public Aeronave(int id_aeronave, int cod, Date dataAquisicao, Date dataAposentadoriao, boolean emAtividade, Modelo modelo) {
+        this.id_aeronave = id_aeronave;
         this.cod = cod;
         this.dataAquisicao = dataAquisicao;
         this.dataAposentadoriao = dataAposentadoriao;
         this.emAtividade = emAtividade;
         this.modelo = modelo;
+    }
+
+    public int getId_aeronave() {
+        return id_aeronave;
+    }
+
+    public void setId_aeronave(int id_aeronave) {
+        this.id_aeronave = id_aeronave;
     }
 
     public int getCod() {
@@ -30,19 +40,19 @@ public class Aeronave {
         this.cod = cod;
     }
 
-    public LocalDate getDataAquisicao() {
+    public Date getDataAquisicao() {
         return dataAquisicao;
     }
 
-    public void setDataAquisicao(LocalDate dataAquisicao) {
+    public void setDataAquisicao(Date dataAquisicao) {
         this.dataAquisicao = dataAquisicao;
     }
 
-    public LocalDate getDataAposentadoriao() {
+    public Date getDataAposentadoriao() {
         return dataAposentadoriao;
     }
 
-    public void setDataAposentadoriao(LocalDate dataAposentadoriao) {
+    public void setDataAposentadoriao(Date dataAposentadoriao) {
         this.dataAposentadoriao = dataAposentadoriao;
     }
 
@@ -70,7 +80,7 @@ public class Aeronave {
         return false;
     }
 
-    public void aposentarAeronave(LocalDate dataAposentadoria) {
+    public void aposentarAeronave(Date dataAposentadoria) {
         System.out.println("Alguma coisa");
     }
 

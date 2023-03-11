@@ -1,24 +1,125 @@
 package Persistencia;
 
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MyDatabaseOperations {
 
-    /*
-		Tabela utiliza no teste
-	 
-		create table teste(
-			cod_teste		int			not null
-		,	nom_teste		varchar(10)	not null
-		);
-		
-		alter table teste add primary key (cod_teste);
-	 
-     */
-    public static void runExamples() {
+    public void inserirFabricante(String dados[]) {
+        try {
+
+            MyConnection myConexao = executarConexao();
+
+            Connection connection = myConexao.getConnection();
+
+            connection.setAutoCommit(false);
+
+            String sql = "";
+
+            sql = "INSERT INTO FABRICANTE(nome, pais_origem) VALUES (?, ?)";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+
+            stm.setString(1, dados[0]);
+            stm.setString(2, dados[1]);
+            stm.executeUpdate(sql);
+            
+            stm.close();
+            connection.commit();
+            connection.close();
+            myConexao.closeConnection();
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void inserirModelo(Object dados[]) {
+        try {
+
+            MyConnection myConexao = executarConexao();
+
+            Connection connection = myConexao.getConnection();
+
+            connection.setAutoCommit(false);
+
+            String sql = "";
+
+            String nome = dados[0].toString();
+            int capacidadePassageiros = Integer.parseInt(dados[1].toString());
+            int capacidadeCarga = Integer.parseInt(dados[2].toString());
+            int autonomia = Integer.parseInt(dados[2].toString());
+            int id_fabricante = Integer.parseInt(dados[3].toString());
+
+            sql = "INSERT INTO MODELO(nome, capacidadePassageiros, capacidadeCarga, autonomia, id_fabricante) VALUES (?, ?, ?, ?, ?)";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+
+            stm.setString(1, nome);
+            stm.setInt(2, capacidadePassageiros);
+            stm.setInt(3, capacidadeCarga);
+            stm.setInt(4, autonomia);
+            stm.setInt(5, id_fabricante);
+            stm.executeUpdate(sql);
+            
+            stm.close();
+            connection.commit();
+            connection.close();
+            myConexao.closeConnection();
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void inserirAeronave(Object dados[]) {
+        try {
+
+            MyConnection myConexao = executarConexao();
+
+            Connection connection = myConexao.getConnection();
+
+            connection.setAutoCommit(false);
+
+            String sql = "";
+
+            int codigo = Integer.parseInt(dados[1].toString());
+            Date dataAquisicao = (Date) dados[2];
+            int id_modelo = Integer.parseInt(dados[3].toString());
+
+            sql = "INSERT INTO AERONAVE(codigo , dataAquisicao, emAtividade, id_modelo ) VALUES (?, ?, ?, ?)";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+
+            stm.setInt(1, codigo);
+            stm.setDate(2, dataAquisicao);
+            stm.setBoolean(3, true);
+            stm.setInt(4, id_modelo);
+            stm.executeUpdate(sql);
+            
+            stm.close();
+            connection.commit();
+            connection.close();
+            myConexao.closeConnection();
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static MyConnection executarConexao() {
 
         MyConnection myConnection = MyConnection.createMyConnection();
         myConnection.setDriver("org.postgresql.Driver");
@@ -27,108 +128,7 @@ public class MyDatabaseOperations {
         myConnection.setUser("postgres");
         myConnection.setPassword("1234");
 
-        try {
-
-            runInserts(myConnection);
-
-            runUpdate(myConnection);
-
-            runDelete(myConnection);
-
-            System.out.println("Dados slavos com sucesso.");
-
-            runSelect(myConnection);
-
-            myConnection.closeConnection();
-
-        } catch (ClassNotFoundException e) {
-            System.out.println("Mensagem de erro: " + e.getMessage());
-            System.out.println("O Java exibiindo o Strack Trace abaixo\n\n");
-            e.printStackTrace();
-            try {
-                myConnection.getConnection().rollback();
-                myConnection.closeConnection();
-            } catch (Exception e1) {
-                System.out.println("Erro ao realizar o rollback");
-                e1.printStackTrace();
-            };
-        } catch (SQLException e) {
-            System.out.println("Mensagem de erro: " + e.getMessage());
-            System.out.println("O Java exibiindo o Strack Trace abaixo\n\n");
-            try {
-                myConnection.getConnection().rollback();
-                myConnection.closeConnection();
-            } catch (Exception e1) {
-                System.out.println("Erro ao realizar o rollback");
-                e1.printStackTrace();
-            };
-        } catch (Exception e) {
-            System.out.println("Mensagem de erro: " + e.getMessage());
-            System.out.println("O Java exibiindo o Strack Trace abaixo\n\n");
-            try {
-                myConnection.getConnection().rollback();
-                myConnection.closeConnection();
-            } catch (Exception e1) {
-                System.out.println("Erro ao realizar o rollback");
-                e1.printStackTrace();
-            };
-        }
-    }
-
-    private static void runInserts(MyConnection myConnection) throws SQLException, ClassNotFoundException {
-        String script;
-
-        Connection connection = myConnection.getConnection();
-
-        // O padrao TRUE. Isso significa que a cada insert o java abre e fecha a transação pra você
-        connection.setAutoCommit(false);
-
-        Statement statement = connection.createStatement();
-
-        script = "INSERT INTO teste (cod_teste, nom_teste) VALUES (1, 'teste1')";
-
-        statement.executeUpdate(script);
-
-        script = "INSERT INTO teste (cod_teste, nom_teste) VALUES (2, 'teste2')";
-
-        statement.executeUpdate(script);
-
-        script = "INSERT INTO teste (cod_teste, nom_teste) VALUES (3, 'teste3')";
-
-        statement.executeUpdate(script);
-        statement.close();
-
-        connection.commit();
-    }
-
-    private static void runUpdate(MyConnection myConnection) throws ClassNotFoundException, SQLException {
-        String script;
-
-        Connection connection = myConnection.getConnection();
-        // O padr�o � TRUE. Isso significa que a cada insert o java abre e fecha a transa��o pra voc�
-        connection.setAutoCommit(true);
-
-        Statement statement = connection.createStatement();
-
-        script = "UPDATE teste SET nom_teste = 'teste 222' WHERE cod_teste = 2";
-
-        statement.executeUpdate(script);
-        statement.close();
-    }
-
-    public static void runDelete(MyConnection myConnection) throws ClassNotFoundException, SQLException {
-        String script;
-
-        Connection connection = myConnection.getConnection();
-        // O padr�o � TRUE. Isso significa que a cada insert o java abre e fecha a transa��o pra voc�
-        connection.setAutoCommit(true);
-
-        Statement statement = connection.createStatement();
-
-        script = "DELETE FROM teste WHERE cod_teste = 3";
-
-        statement.executeUpdate(script);
-        statement.close();
+        return myConnection;
     }
 
     public static void runSelect(MyConnection myConnection) throws ClassNotFoundException, SQLException {

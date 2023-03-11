@@ -6,12 +6,22 @@ package Modelo;
  */
 public class Fabricante {
 
+    private int id_fabricante;
     private String nome;
     private String paisOrigem;
 
-    public Fabricante(String nome, String paisOrigem) {
+    public Fabricante(int id_fabricante, String nome, String paisOrigem) {
+        this.id_fabricante = id_fabricante;
         this.nome = nome;
         this.paisOrigem = paisOrigem;
+    }
+
+    public int getId_fabricante() {
+        return id_fabricante;
+    }
+
+    public void setId_fabricante(int id_fabricante) {
+        this.id_fabricante = id_fabricante;
     }
 
     public String getNome() {

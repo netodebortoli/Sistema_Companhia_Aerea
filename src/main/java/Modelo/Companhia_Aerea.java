@@ -7,5 +7,6 @@ package Modelo;
 public class Companhia_Aerea {
 
     public static void main(String[] args) {
+
     }
 }
