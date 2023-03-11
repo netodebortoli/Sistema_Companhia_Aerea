@@ -80,7 +80,7 @@ public class MyDatabaseOperations {
 
         Connection connection = myConnection.getConnection();
 
-        // O padr�o � TRUE. Isso significa que a cada insert o java abre e fecha a transa��o pra voc�
+        // O padrao TRUE. Isso significa que a cada insert o java abre e fecha a transação pra você
         connection.setAutoCommit(false);
 
         Statement statement = connection.createStatement();
