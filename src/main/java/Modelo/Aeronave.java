@@ -73,7 +73,7 @@ public class Aeronave {
     }
 
     public void salvarAeronave() {
-        System.out.println("Faz algo");
+        System.out.println();
     }
 
     public boolean consultarExistenciaVoo() {
@@ -81,10 +81,10 @@ public class Aeronave {
     }
 
     public void aposentarAeronave(Date dataAposentadoria) {
-        System.out.println("Alguma coisa");
+        System.out.println();
     }
 
     public void excluirAeronave() {
-        System.out.println(".");
+        System.out.println();
     }
 }

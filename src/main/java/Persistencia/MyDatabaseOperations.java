@@ -1,5 +1,5 @@
 package Persistencia;
-
+import Modelo.*;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -29,20 +29,18 @@ public class MyDatabaseOperations {
             stm.setString(1, dados[0]);
             stm.setString(2, dados[1]);
             stm.executeUpdate(sql);
-            
+
             stm.close();
             connection.commit();
             connection.close();
             myConexao.closeConnection();
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void inserirModelo(Object dados[]) {
+    public static void inserirModelo(Modelo mdl) {
         try {
 
             MyConnection myConexao = executarConexao();
@@ -53,31 +51,23 @@ public class MyDatabaseOperations {
 
             String sql = "";
 
-            String nome = dados[0].toString();
-            int capacidadePassageiros = Integer.parseInt(dados[1].toString());
-            int capacidadeCarga = Integer.parseInt(dados[2].toString());
-            int autonomia = Integer.parseInt(dados[2].toString());
-            int id_fabricante = Integer.parseInt(dados[3].toString());
-
             sql = "INSERT INTO MODELO(nome, capacidadePassageiros, capacidadeCarga, autonomia, id_fabricante) VALUES (?, ?, ?, ?, ?)";
 
             PreparedStatement stm = connection.prepareStatement(sql);
 
-            stm.setString(1, nome);
-            stm.setInt(2, capacidadePassageiros);
-            stm.setInt(3, capacidadeCarga);
-            stm.setInt(4, autonomia);
-            stm.setInt(5, id_fabricante);
+            stm.setString(1, mdl.getNome());
+            stm.setInt(2, mdl.getCapacidadePassageiros());
+            stm.setInt(3, mdl.getCapacidadeCarga());
+            stm.setInt(4, mdl.getAutonomia());
+            stm.setInt(5, mdl.getFabricante().getId_fabricante());
             stm.executeUpdate(sql);
-            
+
             stm.close();
             connection.commit();
             connection.close();
             myConexao.closeConnection();
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -106,15 +96,13 @@ public class MyDatabaseOperations {
             stm.setBoolean(3, true);
             stm.setInt(4, id_modelo);
             stm.executeUpdate(sql);
-            
+
             stm.close();
             connection.commit();
             connection.close();
             myConexao.closeConnection();
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -131,21 +119,33 @@ public class MyDatabaseOperations {
         return myConnection;
     }
 
-    public static void runSelect(MyConnection myConnection) throws ClassNotFoundException, SQLException {
-        String codTeste;
-        String nomTeste;
-        Connection connection = myConnection.getConnection();
-        Statement statement = connection.createStatement();
+    public static void selectFabricanteOuModelo(String nomeClasse) {
 
-        ResultSet rs = statement.executeQuery("SELECT cod_teste, nom_teste FROM teste");
+        try {
 
-        while (rs.next()) {
-            codTeste = rs.getString(1);
-            nomTeste = rs.getString(2);
+            String nome;
+            MyConnection myConexao = executarConexao();
+            Connection connection = myConexao.getConnection();
 
-            System.out.println("Código: " + codTeste + "\tNome: " + nomTeste);
+            Statement statement = connection.createStatement();
+            ResultSet rs;
+
+            if (nomeClasse.equals("Fabricante")) {
+                rs = statement.executeQuery("SELECT nome FROM FABRICANTE");
+            } else {
+                rs = statement.executeQuery("SELECT nome FROM MODELO");
+            }
+
+            while (rs.next()) {
+                nome = rs.getString(2);
+                System.out.println("Nome: " + nome);
+            }
+
+            rs.close();
+            statement.close();
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
         }
-        rs.close();
-        statement.close();
     }
 }

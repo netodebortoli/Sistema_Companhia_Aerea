@@ -41,6 +41,6 @@ public class Fabricante {
     }
 
     public void salvarFabricante() {
-        System.out.println(".");
+        System.out.println();
     }
 }

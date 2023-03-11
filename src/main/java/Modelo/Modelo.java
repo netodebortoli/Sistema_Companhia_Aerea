@@ -1,5 +1,7 @@
 package Modelo;
 
+import Persistencia.*;
+
 /**
  *
  * @author Admin
@@ -13,8 +15,7 @@ public class Modelo {
     private int autonomia;
     private Fabricante fabricante;
 
-    public Modelo(int id_modelo, String nome, int capacidadePassageiros, int capacidadeCarga, int autonomia, Fabricante fabricante) {
-        this.id_modelo = id_modelo;
+    public Modelo(String nome, int capacidadePassageiros, int capacidadeCarga, int autonomia, Fabricante fabricante) {
         this.nome = nome;
         this.capacidadePassageiros = capacidadePassageiros;
         this.capacidadeCarga = capacidadeCarga;
@@ -70,7 +71,7 @@ public class Modelo {
         this.fabricante = fabricante;
     }
 
-    public void salvarModelo() {
-        System.out.println(".");
+    public void salvarModelo() {   
+        MyDatabaseOperations.inserirModelo(this);
     }
 }
