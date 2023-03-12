@@ -1,5 +1,7 @@
 package Modelo;
 
+import Persistencia.MyDatabaseOperations;
+
 /**
  *
  * @author Admin
@@ -10,8 +12,7 @@ public class Fabricante {
     private String nome;
     private String paisOrigem;
 
-    public Fabricante(int id_fabricante, String nome, String paisOrigem) {
-        this.id_fabricante = id_fabricante;
+    public Fabricante(String nome, String paisOrigem) {
         this.nome = nome;
         this.paisOrigem = paisOrigem;
     }
@@ -41,6 +42,6 @@ public class Fabricante {
     }
 
     public void salvarFabricante() {
-        System.out.println();
+        MyDatabaseOperations.inserirFabricante(this);
     }
 }

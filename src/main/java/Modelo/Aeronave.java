@@ -1,5 +1,6 @@
 package Modelo;
 
+import Persistencia.MyDatabaseOperations;
 import java.sql.Date;
 
 /**
@@ -15,8 +16,7 @@ public class Aeronave {
     private boolean emAtividade;
     private Modelo modelo;
 
-    public Aeronave(int id_aeronave, int cod, Date dataAquisicao, Date dataAposentadoriao, boolean emAtividade, Modelo modelo) {
-        this.id_aeronave = id_aeronave;
+    public Aeronave(int cod, Date dataAquisicao, Date dataAposentadoriao, boolean emAtividade, Modelo modelo) {
         this.cod = cod;
         this.dataAquisicao = dataAquisicao;
         this.dataAposentadoriao = dataAposentadoriao;
@@ -73,7 +73,7 @@ public class Aeronave {
     }
 
     public void salvarAeronave() {
-        System.out.println();
+        MyDatabaseOperations.inserirAeronave(this);
     }
 
     public boolean consultarExistenciaVoo() {

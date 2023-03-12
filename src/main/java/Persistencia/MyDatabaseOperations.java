@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class MyDatabaseOperations {
 
-    public void inserirFabricante(String dados[]) {
+    public static void inserirFabricante(Fabricante fbr) {
         try {
 
             MyConnection myConexao = executarConexao();
@@ -26,10 +26,10 @@ public class MyDatabaseOperations {
 
             PreparedStatement stm = connection.prepareStatement(sql);
 
-            stm.setString(1, dados[0]);
-            stm.setString(2, dados[1]);
+            stm.setString(1, fbr.getNome());
+            stm.setString(2, fbr.getPaisOrigem());
             stm.executeUpdate(sql);
-
+           
             stm.close();
             connection.commit();
             connection.close();
@@ -72,7 +72,7 @@ public class MyDatabaseOperations {
         }
     }
 
-    public void inserirAeronave(Object dados[]) {
+    public static void inserirAeronave(Aeronave aero) {
         try {
 
             MyConnection myConexao = executarConexao();
@@ -83,18 +83,14 @@ public class MyDatabaseOperations {
 
             String sql = "";
 
-            int codigo = Integer.parseInt(dados[1].toString());
-            Date dataAquisicao = (Date) dados[2];
-            int id_modelo = Integer.parseInt(dados[3].toString());
-
-            sql = "INSERT INTO AERONAVE(codigo , dataAquisicao, emAtividade, id_modelo ) VALUES (?, ?, ?, ?)";
+            sql = "INSERT INTO AERONAVE(codigo , dataAquisicao, emAtividade, id_modelo) VALUES (?, ?, ?, ?)";
 
             PreparedStatement stm = connection.prepareStatement(sql);
 
-            stm.setInt(1, codigo);
-            stm.setDate(2, dataAquisicao);
-            stm.setBoolean(3, true);
-            stm.setInt(4, id_modelo);
+            stm.setInt(1, aero.getCod());
+            stm.setDate(2, aero.getDataAquisicao());
+            stm.setBoolean(3, aero.isEmAtividade());
+            stm.setInt(4, aero.getModelo().getId_modelo());
             stm.executeUpdate(sql);
 
             stm.close();
@@ -107,7 +103,7 @@ public class MyDatabaseOperations {
         }
     }
 
-    public static MyConnection executarConexao() {
+    private static MyConnection executarConexao() {
 
         MyConnection myConnection = MyConnection.createMyConnection();
         myConnection.setDriver("org.postgresql.Driver");

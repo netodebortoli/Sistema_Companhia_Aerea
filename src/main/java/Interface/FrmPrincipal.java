@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Interface;
 
 /**
@@ -37,16 +33,34 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jLabel1.setText("Bem vindo, gerente de frota!");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
 
+        btnAeronave.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAeronave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/IconPlane_40x40.png"))); // NOI18N
         btnAeronave.setText("Aeronave");
+        btnAeronave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAeronaveActionPerformed(evt);
+            }
+        });
 
+        btnModelo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/IconModelo_40x40.png"))); // NOI18N
         btnModelo.setText("Modelo");
+        btnModelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModeloActionPerformed(evt);
+            }
+        });
 
+        btnFabricante.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnFabricante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/IconFactory_40x40.png"))); // NOI18N
         btnFabricante.setText("Fabricante");
+        btnFabricante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFabricanteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -56,7 +70,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnAeronave, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
-                .addComponent(btnModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                .addComponent(btnModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnFabricante)
                 .addContainerGap())
@@ -98,6 +112,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAeronaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAeronaveActionPerformed
+        DlgCadastroAeronave objDlgAero = new DlgCadastroAeronave(this, true);
+        objDlgAero.setVisible(true);
+    }//GEN-LAST:event_btnAeronaveActionPerformed
+
+    private void btnModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModeloActionPerformed
+        DlgCadastroModelo objDlgMdl = new DlgCadastroModelo(this, true);
+        objDlgMdl.setVisible(true);
+    }//GEN-LAST:event_btnModeloActionPerformed
+
+    private void btnFabricanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFabricanteActionPerformed
+        DlgCadastroFabricante objDlgFbr = new DlgCadastroFabricante(this, true);
+        objDlgFbr.setVisible(true);
+    }//GEN-LAST:event_btnFabricanteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -109,7 +138,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

@@ -1,8 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package Interface;
+
+import java.sql.Date;
+import Modelo.Modelo;
+import Modelo.Aeronave;
 
 /**
  *
@@ -31,14 +31,12 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
         painelCodigoAeronave = new javax.swing.JPanel();
         labelCodigoAeronave = new javax.swing.JLabel();
         textFieldCodigoAeronave = new javax.swing.JTextField();
-        painelDataAquisicao = new javax.swing.JPanel();
-        labelDataAquisicao = new javax.swing.JLabel();
-        txtDtAquisicao = new javax.swing.JFormattedTextField();
-        painelSelecionarModelo = new javax.swing.JPanel();
-        labelSelecionarModelo = new javax.swing.JLabel();
-        comboBoxSelecionarModelo = new javax.swing.JComboBox<>();
         btnCadastrar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        labelDataAquisicao = new javax.swing.JLabel();
+        txtDtAquisicao = new javax.swing.JFormattedTextField();
+        comboBoxSelecionarModelo = new javax.swing.JComboBox<>();
+        labelSelecionarModelo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Companhia Aérea - Cadastro de Aeronave");
@@ -57,63 +55,14 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
             .addGroup(painelCodigoAeronaveLayout.createSequentialGroup()
                 .addComponent(labelCodigoAeronave)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(textFieldCodigoAeronave, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                .addComponent(textFieldCodigoAeronave, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                .addContainerGap())
         );
         painelCodigoAeronaveLayout.setVerticalGroup(
             painelCodigoAeronaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCodigoAeronaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(labelCodigoAeronave)
                 .addComponent(textFieldCodigoAeronave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        labelDataAquisicao.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        labelDataAquisicao.setText("Data de aquisição:");
-
-        try {
-            txtDtAquisicao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        javax.swing.GroupLayout painelDataAquisicaoLayout = new javax.swing.GroupLayout(painelDataAquisicao);
-        painelDataAquisicao.setLayout(painelDataAquisicaoLayout);
-        painelDataAquisicaoLayout.setHorizontalGroup(
-            painelDataAquisicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDataAquisicaoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelDataAquisicao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDtAquisicao, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        painelDataAquisicaoLayout.setVerticalGroup(
-            painelDataAquisicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDataAquisicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(labelDataAquisicao)
-                .addComponent(txtDtAquisicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        labelSelecionarModelo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        labelSelecionarModelo.setText("Selecione o modelo:");
-
-        javax.swing.GroupLayout painelSelecionarModeloLayout = new javax.swing.GroupLayout(painelSelecionarModelo);
-        painelSelecionarModelo.setLayout(painelSelecionarModeloLayout);
-        painelSelecionarModeloLayout.setHorizontalGroup(
-            painelSelecionarModeloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelSelecionarModeloLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(labelSelecionarModelo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(comboBoxSelecionarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        painelSelecionarModeloLayout.setVerticalGroup(
-            painelSelecionarModeloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelSelecionarModeloLayout.createSequentialGroup()
-                .addGap(0, 8, Short.MAX_VALUE)
-                .addGroup(painelSelecionarModeloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBoxSelecionarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelSelecionarModelo)))
         );
 
         btnCadastrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -124,31 +73,47 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
             }
         });
 
+        labelDataAquisicao.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        labelDataAquisicao.setText("Data de aquisição:");
+
+        try {
+            txtDtAquisicao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        labelSelecionarModelo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        labelSelecionarModelo.setText("Selecione o modelo:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(painelCodigoAeronave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(painelDataAquisicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(painelCodigoAeronave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(painelSelecionarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(146, 146, 146))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(tituloCadastroAeronave)
-                                .addGap(150, 150, 150))))))
-            .addComponent(jSeparator1)
+                        .addGap(74, 74, 74)
+                        .addComponent(tituloCadastroAeronave))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelSelecionarModelo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboBoxSelecionarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 11, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelDataAquisicao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtDtAquisicao, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,21 +123,30 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(painelCodigoAeronave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(painelDataAquisicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelSelecionarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                .addComponent(painelCodigoAeronave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelSelecionarModelo)
+                    .addComponent(comboBoxSelecionarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDataAquisicao)
+                    .addComponent(txtDtAquisicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(btnCadastrar)
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // TODO add your handling code here:
+        int codigo = Integer.parseInt(textFieldCodigoAeronave.getText());
+        Date dataAquisicao = (Date) txtDtAquisicao.getValue();
+        Modelo mdl = null;
+
+        Aeronave objAeronave = new Aeronave(codigo, dataAquisicao, null, true, mdl);
+        objAeronave.salvarAeronave();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
@@ -186,7 +160,7 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -225,8 +199,6 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
     private javax.swing.JLabel labelDataAquisicao;
     private javax.swing.JLabel labelSelecionarModelo;
     private javax.swing.JPanel painelCodigoAeronave;
-    private javax.swing.JPanel painelDataAquisicao;
-    private javax.swing.JPanel painelSelecionarModelo;
     private javax.swing.JTextField textFieldCodigoAeronave;
     private javax.swing.JLabel tituloCadastroAeronave;
     private javax.swing.JFormattedTextField txtDtAquisicao;
