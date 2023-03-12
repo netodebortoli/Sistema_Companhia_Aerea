@@ -13,9 +13,9 @@ public class Modelo {
     private int capacidadePassageiros;
     private int capacidadeCarga;
     private int autonomia;
-    private Fabricante fabricante;
+    private int fabricante;
 
-    public Modelo(String nome, int capacidadePassageiros, int capacidadeCarga, int autonomia, Fabricante fabricante) {
+    public Modelo(String nome, int capacidadePassageiros, int capacidadeCarga, int autonomia, int fabricante) {
         this.nome = nome;
         this.capacidadePassageiros = capacidadePassageiros;
         this.capacidadeCarga = capacidadeCarga;
@@ -63,11 +63,11 @@ public class Modelo {
         this.autonomia = autonomia;
     }
 
-    public Fabricante getFabricante() {
+    public int getFabricante() {
         return fabricante;
     }
 
-    public void setFabricante(Fabricante fabricante) {
+    public void setFabricante(int fabricante) {
         this.fabricante = fabricante;
     }
 

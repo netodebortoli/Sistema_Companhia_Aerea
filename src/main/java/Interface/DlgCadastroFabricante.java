@@ -2,6 +2,7 @@
 package Interface;
 
 import Modelo.Fabricante;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,6 +39,7 @@ public class DlgCadastroFabricante extends javax.swing.JDialog {
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Fabricante");
 
         tituloCadastroFabricante.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         tituloCadastroFabricante.setForeground(new java.awt.Color(0, 0, 153));
@@ -111,9 +113,13 @@ public class DlgCadastroFabricante extends javax.swing.JDialog {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         String nomeFabricante = txtNomeFabricante.getText();
         String paisOrigem = txtPais.getText();
-
+        
         Fabricante objFabricante = new Fabricante(nomeFabricante, paisOrigem);
         objFabricante.salvarFabricante();
+        
+        JOptionPane.showMessageDialog(this, "Fabricante cadastrado com sucesso.");
+        txtNomeFabricante.setText("");
+        txtPais.setText("");
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**

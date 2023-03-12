@@ -30,13 +30,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Companhia Aérea");
+        setResizable(false);
 
         jLabel1.setText("Bem vindo, gerente de frota!");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
 
         btnAeronave.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnAeronave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/IconPlane_40x40.png"))); // NOI18N
         btnAeronave.setText("Aeronave");
         btnAeronave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -45,7 +45,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         btnModelo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/IconModelo_40x40.png"))); // NOI18N
         btnModelo.setText("Modelo");
         btnModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,7 +53,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         btnFabricante.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnFabricante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/IconFactory_40x40.png"))); // NOI18N
         btnFabricante.setText("Fabricante");
         btnFabricante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,13 +65,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnAeronave, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addComponent(btnModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(btnAeronave, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnFabricante)
-                .addContainerGap())
+                .addComponent(btnModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

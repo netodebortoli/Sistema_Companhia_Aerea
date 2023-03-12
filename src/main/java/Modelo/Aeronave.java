@@ -11,12 +11,12 @@ public class Aeronave {
 
     private int id_aeronave;
     private int cod;
-    private Date dataAquisicao;
-    private Date dataAposentadoriao;
+    private String dataAquisicao;
+    private String dataAposentadoriao;
     private boolean emAtividade;
-    private Modelo modelo;
+    private int modelo;
 
-    public Aeronave(int cod, Date dataAquisicao, Date dataAposentadoriao, boolean emAtividade, Modelo modelo) {
+    public Aeronave(int cod, String dataAquisicao, String dataAposentadoriao, boolean emAtividade, int modelo) {
         this.cod = cod;
         this.dataAquisicao = dataAquisicao;
         this.dataAposentadoriao = dataAposentadoriao;
@@ -40,19 +40,19 @@ public class Aeronave {
         this.cod = cod;
     }
 
-    public Date getDataAquisicao() {
+    public String getDataAquisicao() {
         return dataAquisicao;
     }
 
-    public void setDataAquisicao(Date dataAquisicao) {
+    public void setDataAquisicao(String dataAquisicao) {
         this.dataAquisicao = dataAquisicao;
     }
 
-    public Date getDataAposentadoriao() {
+    public String getDataAposentadoriao() {
         return dataAposentadoriao;
     }
 
-    public void setDataAposentadoriao(Date dataAposentadoriao) {
+    public void setDataAposentadoriao(String dataAposentadoriao) {
         this.dataAposentadoriao = dataAposentadoriao;
     }
 
@@ -64,11 +64,11 @@ public class Aeronave {
         this.emAtividade = emAtividade;
     }
 
-    public Modelo getModelo() {
+    public int getModelo() {
         return modelo;
     }
 
-    public void setModelo(Modelo modelo) {
+    public void setModelo(int modelo) {
         this.modelo = modelo;
     }
 

@@ -1,7 +1,7 @@
 package Persistencia;
+
 import Modelo.*;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,14 +22,14 @@ public class MyDatabaseOperations {
 
             String sql = "";
 
-            sql = "INSERT INTO FABRICANTE(nome, pais_origem) VALUES (?, ?)";
+            sql = "INSERT INTO FABRICANTE(nome, pais_origem) VALUES ('" + fbr.getNome() + "','" + fbr.getPaisOrigem() + "')";
 
-            PreparedStatement stm = connection.prepareStatement(sql);
+            Statement stm = connection.createStatement();
 
-            stm.setString(1, fbr.getNome());
-            stm.setString(2, fbr.getPaisOrigem());
+//            stm.setString(1, fbr.getNome());
+//            stm.setString(2, fbr.getPaisOrigem());
             stm.executeUpdate(sql);
-           
+
             stm.close();
             connection.commit();
             connection.close();
@@ -51,15 +51,22 @@ public class MyDatabaseOperations {
 
             String sql = "";
 
-            sql = "INSERT INTO MODELO(nome, capacidadePassageiros, capacidadeCarga, autonomia, id_fabricante) VALUES (?, ?, ?, ?, ?)";
+//            sql = "INSERT INTO MODELO(nome, capacidadePassageiros, capacidadeCarga, autonomia, id_fabricante) VALUES (?, ?, ?, ?, ?)";
+            sql = "INSERT INTO MODELO(nome, capacidadePassageiros, capacidadeCarga, autonomia, id_fabricante) VALUES ('"
+                    + mdl.getNome() + "','"
+                    + mdl.getCapacidadePassageiros() + "','"
+                    + mdl.getCapacidadeCarga() + "','"
+                    + mdl.getAutonomia() + "','"
+                    + mdl.getFabricante() + "')";
 
-            PreparedStatement stm = connection.prepareStatement(sql);
-
-            stm.setString(1, mdl.getNome());
-            stm.setInt(2, mdl.getCapacidadePassageiros());
-            stm.setInt(3, mdl.getCapacidadeCarga());
-            stm.setInt(4, mdl.getAutonomia());
-            stm.setInt(5, mdl.getFabricante().getId_fabricante());
+            Statement stm = connection.createStatement();
+//            PreparedStatement stm = connection.prepareStatement(sql);
+//
+//            stm.setString(1, mdl.getNome());
+//            stm.setInt(2, mdl.getCapacidadePassageiros());
+//            stm.setInt(3, mdl.getCapacidadeCarga());
+//            stm.setInt(4, mdl.getAutonomia());
+//            stm.setInt(5, mdl.getFabricante().getId_fabricante());
             stm.executeUpdate(sql);
 
             stm.close();
@@ -83,14 +90,20 @@ public class MyDatabaseOperations {
 
             String sql = "";
 
-            sql = "INSERT INTO AERONAVE(codigo , dataAquisicao, emAtividade, id_modelo) VALUES (?, ?, ?, ?)";
+//            sql = "INSERT INTO AERONAVE(codigo , dataAquisicao, emAtividade, id_modelo) VALUES (?, ?, ?, ?)";
+            sql = "INSERT INTO AERONAVE(codigo, dataAquisicao, emAtividade, id_modelo) VALUES ('"
+                    + aero.getCod() + "','"
+                    + aero.getDataAquisicao() + "','"
+                    + aero.isEmAtividade() + "','"
+                    + aero.getModelo() + "')";
 
-            PreparedStatement stm = connection.prepareStatement(sql);
+//            PreparedStatement stm = connection.prepareStatement(sql);
+            Statement stm = connection.createStatement();
 
-            stm.setInt(1, aero.getCod());
-            stm.setDate(2, aero.getDataAquisicao());
-            stm.setBoolean(3, aero.isEmAtividade());
-            stm.setInt(4, aero.getModelo().getId_modelo());
+//            stm.setInt(1, aero.getCod());
+//            stm.setDate(2, aero.getDataAquisicao());
+//            stm.setBoolean(3, aero.isEmAtividade());
+//            stm.setInt(4, aero.getModelo().getId_modelo());
             stm.executeUpdate(sql);
 
             stm.close();

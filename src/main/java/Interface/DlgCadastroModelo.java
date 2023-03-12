@@ -1,6 +1,7 @@
 package Interface;
 import Modelo.Fabricante;
 import Modelo.Modelo;
+import javax.swing.JOptionPane;
 /**
  *
  * @author SAMSUNG
@@ -36,10 +37,12 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
         textFieldAutonomia = new javax.swing.JFormattedTextField();
         labelNomeModelo = new javax.swing.JLabel();
         textFieldNomeModelo = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboBOx_Fabricante = new javax.swing.JComboBox<>();
         textFieldCapacidadeCarga = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Modelo");
+        setResizable(false);
 
         tituloCadastroModelo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         tituloCadastroModelo.setForeground(new java.awt.Color(0, 0, 153));
@@ -78,7 +81,7 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
         labelAutonomia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         labelAutonomia.setText("Autonomia:");
 
-        textFieldAutonomia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        textFieldAutonomia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         labelNomeModelo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         labelNomeModelo.setText("Nome do modelo:");
@@ -112,7 +115,7 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(comboBOx_Fabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(labelCapacidadeCarga)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -159,7 +162,7 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBOx_Fabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(btnCadastrar)
                 .addGap(15, 15, 15))
@@ -173,10 +176,16 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
         int capacidadePassageiros = Integer.parseInt(textFieldCapacidadePassageiros.getText());
         int capacidadeCarga = Integer.parseInt(textFieldCapacidadeCarga.getText());
         int autonomia = Integer.parseInt(textFieldAutonomia.getText());
-        Fabricante fabricante = null;
+        //Fabricante fabricante = null;
 
-        Modelo objModelo = new Modelo(nome,capacidadePassageiros, capacidadeCarga, autonomia, fabricante);
+        Modelo objModelo = new Modelo(nome,capacidadePassageiros, capacidadeCarga, autonomia, 1);
         objModelo.salvarModelo();
+        
+        JOptionPane.showMessageDialog(this, "Modelo cadastrado com sucesso.");
+        textFieldNomeModelo.setText("");
+        textFieldCapacidadePassageiros.setText("");
+        textFieldCapacidadeCarga.setText("");
+        textFieldAutonomia.setText("");
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
@@ -223,7 +232,7 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> comboBOx_Fabricante;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelAutonomia;
