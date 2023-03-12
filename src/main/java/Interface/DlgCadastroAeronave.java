@@ -41,6 +41,7 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Companhia Aérea - Cadastro de Aeronave");
 
         tituloCadastroAeronave.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         tituloCadastroAeronave.setForeground(new java.awt.Color(0, 0, 153));
@@ -94,8 +95,6 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
 
         labelSelecionarModelo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         labelSelecionarModelo.setText("Selecione o modelo:");
-
-        comboBoxSelecionarModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout painelSelecionarModeloLayout = new javax.swing.GroupLayout(painelSelecionarModelo);
         painelSelecionarModelo.setLayout(painelSelecionarModeloLayout);

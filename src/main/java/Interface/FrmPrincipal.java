@@ -39,13 +39,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro"));
 
-        btnAeronave.setIcon(new javax.swing.ImageIcon("C:\\Users\\SAMSUNG\\Documents\\_IFES\\5_Periodo\\PRJS\\imagens\\IconPlane_40x40.png")); // NOI18N
+        btnAeronave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/IconPlane_40x40.png"))); // NOI18N
         btnAeronave.setText("Aeronave");
 
-        btnModelo.setIcon(new javax.swing.ImageIcon("C:\\Users\\SAMSUNG\\Documents\\_IFES\\5_Periodo\\PRJS\\imagens\\IconModelo_40x40.png")); // NOI18N
+        btnModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/IconModelo_40x40.png"))); // NOI18N
         btnModelo.setText("Modelo");
 
-        btnFabricante.setIcon(new javax.swing.ImageIcon("C:\\Users\\SAMSUNG\\Documents\\_IFES\\5_Periodo\\PRJS\\imagens\\IconFactory_40x40.png")); // NOI18N
+        btnFabricante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/IconFactory_40x40.png"))); // NOI18N
         btnFabricante.setText("Fabricante");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
