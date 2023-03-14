@@ -108,8 +108,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Component id="labelCodigoAeronave" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="textFieldCodigoAeronave" pref="134" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="textFieldCodigoAeronave" pref="140" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -132,7 +132,12 @@
             <Property name="text" type="java.lang.String" value="C&#xf3;digo da aeronave:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textFieldCodigoAeronave">
+        <Component class="javax.swing.JFormattedTextField" name="textFieldCodigoAeronave">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+              <Format format="#0" subtype="-1" type="0"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -160,7 +165,7 @@
     <Component class="javax.swing.JFormattedTextField" name="txtDtAquisicao">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-          <Format format="####/##/##" subtype="-1" type="5"/>
+          <Format format="##/##/####" subtype="-1" type="5"/>
         </Property>
       </Properties>
     </Component>

@@ -1,7 +1,9 @@
 package Interface;
+
 import Modelo.Fabricante;
 import Modelo.Modelo;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author SAMSUNG
@@ -37,7 +39,7 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
         textFieldAutonomia = new javax.swing.JFormattedTextField();
         labelNomeModelo = new javax.swing.JLabel();
         textFieldNomeModelo = new javax.swing.JTextField();
-        comboBOx_Fabricante = new javax.swing.JComboBox<>();
+        comboBox_Fabricante = new javax.swing.JComboBox<>();
         textFieldCapacidadeCarga = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -115,7 +117,7 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(comboBOx_Fabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(comboBox_Fabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(labelCapacidadeCarga)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -162,8 +164,8 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(comboBOx_Fabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                    .addComponent(comboBox_Fabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(btnCadastrar)
                 .addGap(15, 15, 15))
         );
@@ -171,21 +173,57 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        String nome = textFieldNomeModelo.getText();
-        int capacidadePassageiros = Integer.parseInt(textFieldCapacidadePassageiros.getText());
-        int capacidadeCarga = Integer.parseInt(textFieldCapacidadeCarga.getText());
-        int autonomia = Integer.parseInt(textFieldAutonomia.getText());
-        //Fabricante fabricante = null;
+    private boolean validarDadosCadastroModelo() {
 
-        Modelo objModelo = new Modelo(nome,capacidadePassageiros, capacidadeCarga, autonomia, 1);
-        objModelo.salvarModelo();
-        
-        JOptionPane.showMessageDialog(this, "Modelo cadastrado com sucesso.");
-        textFieldNomeModelo.setText("");
-        textFieldCapacidadePassageiros.setText("");
-        textFieldCapacidadeCarga.setText("");
-        textFieldAutonomia.setText("");
+        boolean valido = true;
+
+        /*if (textFieldCodigoModelo.getText().trim().length() == 0) {;;
+            JOptionPane.showMessageDialog(this, "O preenchimento do código é obrigatório");
+            valido = false;
+        }*/
+        if (textFieldNomeModelo.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "O preenchimento da nome do modelo é obrigatório");
+            valido = false;
+        }
+        if (comboBox_Fabricante.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "A seleção do fabricante é obrigatória");
+            valido = false;
+        }
+        if (textFieldAutonomia.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "O preenchimento da data é obrigatório");
+            valido = false;
+        }
+        if (textFieldCapacidadeCarga.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "O preenchimento da capacidade de carga é obrigatório");
+            valido = false;
+        }
+        if (textFieldCapacidadePassageiros.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "O preenchimento da capacidade de passageiros é obrigatório");
+            valido = false;
+        }
+
+        return valido;
+    }
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+
+        if (validarDadosCadastroModelo()) {
+            String nome = textFieldNomeModelo.getText();
+            int capacidadePassageiros = Integer.parseInt(textFieldCapacidadePassageiros.getText());
+            int capacidadeCarga = Integer.parseInt(textFieldCapacidadeCarga.getText());
+            int autonomia = Integer.parseInt(textFieldAutonomia.getText());
+            //Fabricante fabricante = null;
+
+            Modelo objModelo = new Modelo(nome, capacidadePassageiros, capacidadeCarga, autonomia, 1);
+            objModelo.salvarModelo();
+
+            JOptionPane.showMessageDialog(this, "Modelo cadastrado com sucesso.");
+            textFieldNomeModelo.setText("");
+            textFieldCapacidadePassageiros.setText("");
+            textFieldCapacidadeCarga.setText("");
+            textFieldAutonomia.setText("");
+        }
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
@@ -232,7 +270,7 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
-    private javax.swing.JComboBox<String> comboBOx_Fabricante;
+    private javax.swing.JComboBox<String> comboBox_Fabricante;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelAutonomia;

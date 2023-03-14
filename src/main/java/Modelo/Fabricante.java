@@ -12,7 +12,8 @@ public class Fabricante {
     private String nome;
     private String paisOrigem;
 
-    public Fabricante(String nome, String paisOrigem) {
+    public Fabricante(int id_fabricante, String nome, String paisOrigem) {
+        this.id_fabricante = id_fabricante;
         this.nome = nome;
         this.paisOrigem = paisOrigem;
     }

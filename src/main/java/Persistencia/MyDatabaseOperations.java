@@ -2,7 +2,6 @@ package Persistencia;
 
 import Modelo.*;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,17 +21,15 @@ public class MyDatabaseOperations {
 
             String sql = "";
 
-            sql = "INSERT INTO FABRICANTE(nome, pais_origem) VALUES ('" + fbr.getNome() + "','" + fbr.getPaisOrigem() + "')";
+            sql = "INSERT INTO FABRICANTE(id_fabricante, nome, pais_origem) VALUES (" + fbr.getId_fabricante() + ", '" + fbr.getNome() + "','" + fbr.getPaisOrigem() + "')";
 
             Statement stm = connection.createStatement();
 
-//            stm.setString(1, fbr.getNome());
-//            stm.setString(2, fbr.getPaisOrigem());
             stm.executeUpdate(sql);
 
             stm.close();
             connection.commit();
-            connection.close();
+
             myConexao.closeConnection();
 
         } catch (ClassNotFoundException | SQLException ex) {
@@ -51,7 +48,6 @@ public class MyDatabaseOperations {
 
             String sql = "";
 
-//            sql = "INSERT INTO MODELO(nome, capacidadePassageiros, capacidadeCarga, autonomia, id_fabricante) VALUES (?, ?, ?, ?, ?)";
             sql = "INSERT INTO MODELO(nome, capacidadePassageiros, capacidadeCarga, autonomia, id_fabricante) VALUES ('"
                     + mdl.getNome() + "','"
                     + mdl.getCapacidadePassageiros() + "','"
@@ -60,13 +56,7 @@ public class MyDatabaseOperations {
                     + mdl.getFabricante() + "')";
 
             Statement stm = connection.createStatement();
-//            PreparedStatement stm = connection.prepareStatement(sql);
-//
-//            stm.setString(1, mdl.getNome());
-//            stm.setInt(2, mdl.getCapacidadePassageiros());
-//            stm.setInt(3, mdl.getCapacidadeCarga());
-//            stm.setInt(4, mdl.getAutonomia());
-//            stm.setInt(5, mdl.getFabricante().getId_fabricante());
+
             stm.executeUpdate(sql);
 
             stm.close();
@@ -90,20 +80,14 @@ public class MyDatabaseOperations {
 
             String sql = "";
 
-//            sql = "INSERT INTO AERONAVE(codigo , dataAquisicao, emAtividade, id_modelo) VALUES (?, ?, ?, ?)";
             sql = "INSERT INTO AERONAVE(codigo, dataAquisicao, emAtividade, id_modelo) VALUES ('"
                     + aero.getCod() + "','"
                     + aero.getDataAquisicao() + "','"
                     + aero.isEmAtividade() + "','"
                     + aero.getModelo() + "')";
 
-//            PreparedStatement stm = connection.prepareStatement(sql);
             Statement stm = connection.createStatement();
 
-//            stm.setInt(1, aero.getCod());
-//            stm.setDate(2, aero.getDataAquisicao());
-//            stm.setBoolean(3, aero.isEmAtividade());
-//            stm.setInt(4, aero.getModelo().getId_modelo());
             stm.executeUpdate(sql);
 
             stm.close();
@@ -116,16 +100,80 @@ public class MyDatabaseOperations {
         }
     }
 
-    private static MyConnection executarConexao() {
+    public static MyConnection executarConexao() {
 
         MyConnection myConnection = MyConnection.createMyConnection();
         myConnection.setDriver("org.postgresql.Driver");
-        myConnection.setUrl("jdbc:postgresql://localhost:5432/");
+        myConnection.setUrl("jdbc:postgresql://localhost:3306/");
         myConnection.setDatabaseName("DB_Companhia Aerea");
         myConnection.setUser("postgres");
-        myConnection.setPassword("1234");
+        myConnection.setPassword("postgres");
 
         return myConnection;
+    }
+
+    public static boolean validarIdFabricante(int id_fabricante) {
+        try {
+
+            MyConnection myConexao = executarConexao();
+
+            Connection connection = myConexao.getConnection();
+
+            String sql = "";
+
+            sql = "SELECT id_fabricante FROM Fabricante WHERE id_fabricante = " + id_fabricante + ";";
+
+            Statement stm = connection.createStatement();
+            ResultSet rs;
+
+            rs = stm.executeQuery(sql);
+            boolean idEncontrado;
+
+            idEncontrado = rs.next();
+
+            rs.close();
+            stm.close();
+
+            myConexao.closeConnection();
+
+            return idEncontrado;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public static boolean validarIdAeronave(int id_aeronave) {
+        try {
+
+            MyConnection myConexao = executarConexao();
+
+            Connection connection = myConexao.getConnection();
+
+            String sql = "";
+
+            sql = "SELECT id_aeronave FROM AERONAVE WHERE id_aeronave = " + id_aeronave + ";";
+
+            Statement stm = connection.createStatement();
+            ResultSet rs;
+
+            rs = stm.executeQuery(sql);
+            boolean idEncontrado;
+
+            idEncontrado = rs.next();
+
+            rs.close();
+            stm.close();
+
+            myConexao.closeConnection();
+
+            return idEncontrado;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     public static void selectFabricanteOuModelo(String nomeClasse) {

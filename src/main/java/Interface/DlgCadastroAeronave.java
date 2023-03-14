@@ -1,5 +1,6 @@
 package Interface;
 
+import static Persistencia.MyDatabaseOperations.validarIdAeronave;
 import Modelo.Modelo;
 import Modelo.Aeronave;
 import javax.swing.JOptionPane;
@@ -30,7 +31,7 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
         tituloCadastroAeronave = new javax.swing.JLabel();
         painelCodigoAeronave = new javax.swing.JPanel();
         labelCodigoAeronave = new javax.swing.JLabel();
-        textFieldCodigoAeronave = new javax.swing.JTextField();
+        textFieldCodigoAeronave = new javax.swing.JFormattedTextField();
         btnCadastrar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         labelDataAquisicao = new javax.swing.JLabel();
@@ -49,14 +50,16 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
         labelCodigoAeronave.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         labelCodigoAeronave.setText("Código da aeronave:");
 
+        textFieldCodigoAeronave.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+
         javax.swing.GroupLayout painelCodigoAeronaveLayout = new javax.swing.GroupLayout(painelCodigoAeronave);
         painelCodigoAeronave.setLayout(painelCodigoAeronaveLayout);
         painelCodigoAeronaveLayout.setHorizontalGroup(
             painelCodigoAeronaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCodigoAeronaveLayout.createSequentialGroup()
                 .addComponent(labelCodigoAeronave)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(textFieldCodigoAeronave, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldCodigoAeronave, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                 .addContainerGap())
         );
         painelCodigoAeronaveLayout.setVerticalGroup(
@@ -78,7 +81,7 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
         labelDataAquisicao.setText("Data de aquisição:");
 
         try {
-            txtDtAquisicao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####/##/##")));
+            txtDtAquisicao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -142,17 +145,41 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private boolean validarDadosCadastroAeronave() {
+
+        boolean valido = true;
+
+        if (textFieldCodigoAeronave.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "O preenchimento do código é obrigatório");
+            valido = false;
+        }
+        if (comboBox_Modelo.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "A seleção do modelo é obrigatória");
+            valido = false;
+        }
+        if (txtDtAquisicao.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "O preenchimento da data é obrigatório");
+            valido = false;
+        }
+
+        return valido;
+    }
+
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        int codigo = Integer.parseInt(textFieldCodigoAeronave.getText());
-        String dataAquisicao = txtDtAquisicao.getText();
+
+        if ( validarDadosCadastroAeronave() && !validarIdAeronave(Integer.parseInt(textFieldCodigoAeronave.getText())) ) {
+            int codigo = Integer.parseInt(textFieldCodigoAeronave.getText());
+            String dataAquisicao = txtDtAquisicao.getText();
 //        Modelo mdl = null;
 
-        Aeronave objAeronave = new Aeronave(codigo, dataAquisicao, null, true, 2);
-        objAeronave.salvarAeronave();
-        
-        JOptionPane.showMessageDialog(this, "Aeronave cadastrada com sucesso.");
-        textFieldCodigoAeronave.setText("");
-        txtDtAquisicao.setText("");
+            Aeronave objAeronave = new Aeronave(codigo, dataAquisicao, null, true, 1);
+            objAeronave.salvarAeronave();
+
+            JOptionPane.showMessageDialog(this, "Aeronave cadastrada com sucesso.");
+            textFieldCodigoAeronave.setText("");
+            txtDtAquisicao.setText("");
+        }
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
@@ -205,7 +232,7 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
     private javax.swing.JLabel labelDataAquisicao;
     private javax.swing.JLabel labelSelecionarModelo;
     private javax.swing.JPanel painelCodigoAeronave;
-    private javax.swing.JTextField textFieldCodigoAeronave;
+    private javax.swing.JFormattedTextField textFieldCodigoAeronave;
     private javax.swing.JLabel tituloCadastroAeronave;
     private javax.swing.JFormattedTextField txtDtAquisicao;
     // End of variables declaration//GEN-END:variables

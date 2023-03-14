@@ -11,7 +11,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      */
     public FrmPrincipal() {
         initComponents();
-    }
+    }   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,6 +31,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Companhia Aérea");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("Bem vindo, gerente de frota!");
 
@@ -124,6 +129,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         DlgCadastroFabricante objDlgFbr = new DlgCadastroFabricante(this, true);
         objDlgFbr.setVisible(true);
     }//GEN-LAST:event_btnFabricanteActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
