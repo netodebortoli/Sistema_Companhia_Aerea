@@ -177,28 +177,24 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
 
         boolean valido = true;
 
-        /*if (textFieldCodigoModelo.getText().trim().length() == 0) {;;
-            JOptionPane.showMessageDialog(this, "O preenchimento do código é obrigatório");
-            valido = false;
-        }*/
         if (textFieldNomeModelo.getText().trim().length() == 0) {
-            JOptionPane.showMessageDialog(this, "O preenchimento da nome do modelo é obrigatório");
+            JOptionPane.showMessageDialog(this, "O preenchimento do nome do modelo é obrigatório.");
+            valido = false;
+        }
+        if (textFieldCapacidadePassageiros.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "O preenchimento da capacidade de passageiros é obrigatório.");
+            valido = false;
+        }
+        if (textFieldAutonomia.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "O preenchimento da autonomia é obrigatório.");
+            valido = false;
+        }
+        if (textFieldCapacidadeCarga.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "O preenchimento da capacidade de carga é obrigatório.");
             valido = false;
         }
         if (comboBox_Fabricante.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "A seleção do fabricante é obrigatória");
-            valido = false;
-        }
-        if (textFieldAutonomia.getText().trim().length() == 0) {
-            JOptionPane.showMessageDialog(this, "O preenchimento da data é obrigatório");
-            valido = false;
-        }
-        if (textFieldCapacidadeCarga.getText().trim().length() == 0) {
-            JOptionPane.showMessageDialog(this, "O preenchimento da capacidade de carga é obrigatório");
-            valido = false;
-        }
-        if (textFieldCapacidadePassageiros.getText().trim().length() == 0) {
-            JOptionPane.showMessageDialog(this, "O preenchimento da capacidade de passageiros é obrigatório");
             valido = false;
         }
 
@@ -208,13 +204,14 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
 
         if (validarDadosCadastroModelo()) {
+            
             String nome = textFieldNomeModelo.getText();
             int capacidadePassageiros = Integer.parseInt(textFieldCapacidadePassageiros.getText());
             int capacidadeCarga = Integer.parseInt(textFieldCapacidadeCarga.getText());
             int autonomia = Integer.parseInt(textFieldAutonomia.getText());
-            //Fabricante fabricante = null;
+            Fabricante fbr = (Fabricante) comboBox_Fabricante.getSelectedItem();
 
-            Modelo objModelo = new Modelo(nome, capacidadePassageiros, capacidadeCarga, autonomia, 1);
+            Modelo objModelo = new Modelo(nome, capacidadePassageiros, capacidadeCarga, autonomia, fbr);
             objModelo.salvarModelo();
 
             JOptionPane.showMessageDialog(this, "Modelo cadastrado com sucesso.");
@@ -223,7 +220,6 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
             textFieldCapacidadeCarga.setText("");
             textFieldAutonomia.setText("");
         }
-
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
