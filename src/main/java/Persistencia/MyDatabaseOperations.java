@@ -2,6 +2,7 @@ package Persistencia;
 
 import Modelo.*;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,7 +11,7 @@ import java.util.logging.Logger;
 
 public class MyDatabaseOperations {
 
-    public static void inserirFabricante(Fabricante fbr) {
+    public static int inserirFabricante(Fabricante fbr) {
         try {
 
             MyConnection myConexao = executarConexao();
@@ -19,21 +20,33 @@ public class MyDatabaseOperations {
 
             connection.setAutoCommit(false);
 
-            String sql = "";
+            String sql;
+            int id = 0;
+            // sql = "INSERT INTO FABRICANTE(id_fabricante, nome, pais_origem) VALUES ( '" + fbr.getNome() + "','" + fbr.getPaisOrigem() + "')";
 
-            sql = "INSERT INTO FABRICANTE(id_fabricante, nome, pais_origem) VALUES (" + fbr.getId_fabricante() + ", '" + fbr.getNome() + "','" + fbr.getPaisOrigem() + "')";
+            sql = "INSERT INTO FABRICANTE (nome, pais_origem) VALUES (?, ?)";
 
-            Statement stm = connection.createStatement();
+            //Statement stm = connection.createStatement();
+            PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            stm.executeUpdate(sql);
+            stm.setString(1, fbr.getNome());
+            stm.setString(2, fbr.getPaisOrigem());
 
+            stm.execute();
+
+            ResultSet rs = stm.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
             stm.close();
             connection.commit();
-
+            connection.close();
             myConexao.closeConnection();
+            return id;
 
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
         }
     }
 
@@ -104,10 +117,10 @@ public class MyDatabaseOperations {
 
         MyConnection myConnection = MyConnection.createMyConnection();
         myConnection.setDriver("org.postgresql.Driver");
-        myConnection.setUrl("jdbc:postgresql://localhost:3306/");
+        myConnection.setUrl("jdbc:postgresql://localhost:5432/");
         myConnection.setDatabaseName("DB_Companhia Aerea");
         myConnection.setUser("postgres");
-        myConnection.setPassword("postgres");
+        myConnection.setPassword("1234");
 
         return myConnection;
     }

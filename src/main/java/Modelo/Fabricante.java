@@ -42,7 +42,7 @@ public class Fabricante {
         this.paisOrigem = paisOrigem;
     }
 
-    public void salvarFabricante() {
-        MyDatabaseOperations.inserirFabricante(this);
+     public void salvarFabricante() {
+        this.id_fabricante = MyDatabaseOperations.inserirFabricante(this);
     }
 }
