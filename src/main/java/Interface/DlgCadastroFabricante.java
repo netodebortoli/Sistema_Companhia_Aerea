@@ -2,7 +2,6 @@ package Interface;
 
 import Modelo.Fabricante;
 import javax.swing.JOptionPane;
-import static Persistencia.MyDatabaseOperations.validarIdFabricante;
 
 /**
  *
@@ -37,8 +36,6 @@ public class DlgCadastroFabricante extends javax.swing.JDialog {
         txtPais = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        txtIdFabricante = new javax.swing.JLabel();
-        txtId = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Fabricante");
@@ -51,7 +48,7 @@ public class DlgCadastroFabricante extends javax.swing.JDialog {
         jLabel2.setText("Nome do Fabricante:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setText("País de origem:");
+        jLabel3.setText("País de Origem:");
 
         btnCadastrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCadastrar.setText("CADASTRAR");
@@ -60,11 +57,6 @@ public class DlgCadastroFabricante extends javax.swing.JDialog {
                 btnCadastrarActionPerformed(evt);
             }
         });
-
-        txtIdFabricante.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        txtIdFabricante.setText("ID");
-
-        txtId.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,10 +69,6 @@ public class DlgCadastroFabricante extends javax.swing.JDialog {
                 .addGap(65, 65, 65)
                 .addComponent(tituloCadastroFabricante)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,18 +76,16 @@ public class DlgCadastroFabricante extends javax.swing.JDialog {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPais))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtIdFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNomeFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNomeFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,11 +94,7 @@ public class DlgCadastroFabricante extends javax.swing.JDialog {
                 .addComponent(tituloCadastroFabricante)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIdFabricante)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNomeFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -120,9 +102,9 @@ public class DlgCadastroFabricante extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addGap(48, 48, 48)
                 .addComponent(btnCadastrar)
-                .addGap(25, 25, 25))
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -132,17 +114,13 @@ public class DlgCadastroFabricante extends javax.swing.JDialog {
 
         boolean valido = true;
 
-        if (txtId.getText().trim().length() == 0) {
-            JOptionPane.showMessageDialog(this, "O preenchimento do código é obrigatório");
-            valido = false;
-        }
         if (txtNomeFabricante.getText().trim().length() == 0) {
-            JOptionPane.showMessageDialog(this, "O preenchimento da nome do fabricante é obrigatório");
+            JOptionPane.showMessageDialog(this, "O preenchimento do nome do fabricante é obrigatório.");
             valido = false;
         }
 
         if (txtPais.getText().trim().length() == 0) {
-            JOptionPane.showMessageDialog(this, "O preenchimento do país de origem é obrigatório");
+            JOptionPane.showMessageDialog(this, "O preenchimento do país de origem é obrigatório.");
             valido = false;
         }
 
@@ -151,17 +129,15 @@ public class DlgCadastroFabricante extends javax.swing.JDialog {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
 
-        if (validarDadosCadastroFabricante() && !validarIdFabricante(Integer.parseInt(txtId.getText()))) {
+        if ( validarDadosCadastroFabricante() ) {
             
-            int codigo = Integer.parseInt(txtId.getText());
             String nomeFabricante = txtNomeFabricante.getText();
             String paisOrigem = txtPais.getText();
 
-            Fabricante objFabricante = new Fabricante(codigo, nomeFabricante, paisOrigem);
+            Fabricante objFabricante = new Fabricante(nomeFabricante, paisOrigem);
             objFabricante.salvarFabricante();
 
             JOptionPane.showMessageDialog(this, "Fabricante cadastrado com sucesso.");
-            txtId.setText("");
             txtNomeFabricante.setText("");
             txtPais.setText("");
         }
@@ -215,8 +191,6 @@ public class DlgCadastroFabricante extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel tituloCadastroFabricante;
-    private javax.swing.JFormattedTextField txtId;
-    private javax.swing.JLabel txtIdFabricante;
     private javax.swing.JTextField txtNomeFabricante;
     private javax.swing.JTextField txtPais;
     // End of variables declaration//GEN-END:variables

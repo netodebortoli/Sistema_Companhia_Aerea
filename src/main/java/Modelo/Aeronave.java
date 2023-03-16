@@ -1,7 +1,6 @@
 package Modelo;
 
 import Persistencia.MyDatabaseOperations;
-import java.sql.Date;
 
 /**
  *
@@ -14,9 +13,9 @@ public class Aeronave {
     private String dataAquisicao;
     private String dataAposentadoriao;
     private boolean emAtividade;
-    private int modelo;
+    private Modelo modelo;
 
-    public Aeronave(int cod, String dataAquisicao, String dataAposentadoriao, boolean emAtividade, int modelo) {
+    public Aeronave(int cod, String dataAquisicao, String dataAposentadoriao, boolean emAtividade, Modelo modelo) {
         this.cod = cod;
         this.dataAquisicao = dataAquisicao;
         this.dataAposentadoriao = dataAposentadoriao;
@@ -64,11 +63,11 @@ public class Aeronave {
         this.emAtividade = emAtividade;
     }
 
-    public int getModelo() {
+    public Modelo getModelo() {
         return modelo;
     }
 
-    public void setModelo(int modelo) {
+    public void setModelo(Modelo modelo) {
         this.modelo = modelo;
     }
 
@@ -80,7 +79,7 @@ public class Aeronave {
         return false;
     }
 
-    public void aposentarAeronave(Date dataAposentadoria) {
+    public void aposentarAeronave(String dataAposentadoria) {
         System.out.println();
     }
 
