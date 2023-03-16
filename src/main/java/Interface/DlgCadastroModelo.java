@@ -232,7 +232,7 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
                 textFieldCapacidadeCarga.setText("");
                 textFieldAutonomia.setText("");
             } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(DlgCadastroModelo.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Erro ao cadastrar Modelo.\n" + ex.getMessage());
             }
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
@@ -243,9 +243,9 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
             model = new DefaultComboBoxModel(listarFabricantes().toArray());
             comboBox_Fabricante.setModel(model);
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(DlgCadastroModelo.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Erro ao carregar os Fabricantes.\n" + ex.getMessage());
         }
-        
+
     }//GEN-LAST:event_formComponentShown
 
     /**

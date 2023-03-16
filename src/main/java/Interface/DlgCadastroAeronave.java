@@ -197,12 +197,12 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
                         textFieldCodigoAeronave.setText("");
                         txtDtAquisicao.setText("");
                     } catch (SQLException | ClassNotFoundException ex) {
-                        Logger.getLogger(DlgCadastroAeronave.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(this, "Erro ao cadastrar Aeronave.\n" + ex.getMessage());
                     }
                 }
             }
         } catch (SQLException | ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(this, "Código de aeronave já cadastrado." + ex);
+            JOptionPane.showMessageDialog(this, "Não foi possível validar o código da aeronave.\n" + ex.getMessage());
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Data inválida.");
             txtDtAquisicao.setText("");
@@ -215,7 +215,7 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
             model = new DefaultComboBoxModel(listarModelos().toArray());
             comboBox_Modelo.setModel(model);
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(DlgCadastroAeronave.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Erro ao carregar os Modelos de Aeronave.\n" + ex.getMessage());
         }
 
     }//GEN-LAST:event_formComponentShown

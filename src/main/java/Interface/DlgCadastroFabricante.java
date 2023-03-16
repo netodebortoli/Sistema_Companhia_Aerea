@@ -140,9 +140,8 @@ public class DlgCadastroFabricante extends javax.swing.JDialog {
                 txtNomeFabricante.setText("");
                 txtPais.setText("");
             } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(DlgCadastroFabricante.class.getName()).log(Level.SEVERE, null, ex);
+               JOptionPane.showMessageDialog(this, "Erro ao cadastrar Fabricante.\n" + ex.getMessage());
             }
-
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 

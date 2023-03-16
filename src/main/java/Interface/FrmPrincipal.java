@@ -4,6 +4,7 @@ import Persistencia.MyConnection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,7 +20,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             initComponents();
             MyConnection.obterConexao();
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Erro ao conectar-se ao Banco de Dados.\n" + ex.getMessage());
             System.exit(-1);
         }
     }
