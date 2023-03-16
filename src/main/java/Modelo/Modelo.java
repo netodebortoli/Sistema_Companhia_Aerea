@@ -1,6 +1,6 @@
 package Modelo;
 
-import Persistencia.*;
+import Persistencia.ModeloDAO;
 import java.sql.SQLException;
 
 /**
@@ -73,13 +73,11 @@ public class Modelo {
     }
 
     public void salvarModelo() throws SQLException, ClassNotFoundException {   
-       this.id_modelo = MyDatabaseOperations.inserirModelo(this);
+       this.id_modelo = ModeloDAO.inserirModelo(this);
     }
 
     @Override
     public String toString() {
         return this.nome;
     }
-    
-    
 }

@@ -4,7 +4,10 @@ import Modelo.Fabricante;
 import Modelo.Modelo;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import static Persistencia.MyDatabaseOperations.listarFabricantes;
+import static Persistencia.FabricanteDAO.listarFabricantes;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -94,6 +97,8 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
 
         labelNomeModelo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         labelNomeModelo.setText("Nome do modelo:");
+
+        textFieldCapacidadeCarga.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -219,19 +224,28 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
             Fabricante fbr = (Fabricante) comboBox_Fabricante.getSelectedItem();
 
             Modelo objModelo = new Modelo(nome, capacidadePassageiros, capacidadeCarga, autonomia, fbr);
-            objModelo.salvarModelo();
-
-            JOptionPane.showMessageDialog(this, "Modelo cadastrado com sucesso");
-            textFieldNomeModelo.setText("");
-            textFieldCapacidadePassageiros.setText("");
-            textFieldCapacidadeCarga.setText("");
-            textFieldAutonomia.setText("");
+            try {
+                objModelo.salvarModelo();
+                JOptionPane.showMessageDialog(this, "Modelo cadastrado com sucesso");
+                textFieldNomeModelo.setText("");
+                textFieldCapacidadePassageiros.setText("");
+                textFieldCapacidadeCarga.setText("");
+                textFieldAutonomia.setText("");
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(DlgCadastroModelo.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        DefaultComboBoxModel model = new DefaultComboBoxModel(listarFabricantes().toArray());
-        comboBox_Fabricante.setModel(model);
+        DefaultComboBoxModel model;
+        try {
+            model = new DefaultComboBoxModel(listarFabricantes().toArray());
+            comboBox_Fabricante.setModel(model);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(DlgCadastroModelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_formComponentShown
 
     /**

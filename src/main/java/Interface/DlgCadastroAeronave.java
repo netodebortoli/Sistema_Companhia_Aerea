@@ -4,7 +4,14 @@ import Modelo.Modelo;
 import Modelo.Aeronave;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import static Persistencia.MyDatabaseOperations.listarModelos;
+import static Persistencia.ModeloDAO.listarModelos;
+import static Persistencia.AeronaveDAO.validarCodigoAeronave;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static utils.FuncoesUteis.strToDate;
 
 /**
  *
@@ -158,6 +165,7 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "O preenchimento do código da aeronave é obrigatório.");
             valido = false;
         }
+
         if (comboBox_Modelo.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "A seleção de um modelo é obrigatório.");
             valido = false;
@@ -172,24 +180,44 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
 
-        if (validarDadosCadastroAeronave()) {
+        try {
+            if (validarDadosCadastroAeronave()) {
+                if (validarCodigoAeronave(Integer.parseInt(textFieldCodigoAeronave.getText()))) {
+                    JOptionPane.showMessageDialog(this, "Código da aeronave já cadastrado.");
+                } else {
+                    int codigo = Integer.parseInt(textFieldCodigoAeronave.getText());
+                    String dataAquisicao = txtDtAquisicao.getText();
+                    Modelo mdl = (Modelo) comboBox_Modelo.getSelectedItem();
+                    Date dtAquisicao = strToDate(dataAquisicao);
 
-            int codigo = Integer.parseInt(textFieldCodigoAeronave.getText());
-            String dataAquisicao = txtDtAquisicao.getText();
-            Modelo mdl = (Modelo) comboBox_Modelo.getSelectedItem();
-
-            Aeronave objAeronave = new Aeronave(codigo, dataAquisicao, null, true, mdl);
-            objAeronave.salvarAeronave();
-
-            JOptionPane.showMessageDialog(this, "Aeronave cadastrada com sucesso.");
-            textFieldCodigoAeronave.setText("");
+                    Aeronave objAeronave = new Aeronave(codigo, dtAquisicao, null, true, mdl);
+                    try {
+                        objAeronave.salvarAeronave();
+                        JOptionPane.showMessageDialog(this, "Aeronave cadastrada com sucesso.");
+                        textFieldCodigoAeronave.setText("");
+                        txtDtAquisicao.setText("");
+                    } catch (SQLException | ClassNotFoundException ex) {
+                        Logger.getLogger(DlgCadastroAeronave.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "Código de aeronave já cadastrado." + ex);
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Data inválida.");
             txtDtAquisicao.setText("");
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        DefaultComboBoxModel model = new DefaultComboBoxModel(listarModelos().toArray());
-        comboBox_Modelo.setModel(model);
+        DefaultComboBoxModel model;
+        try {
+            model = new DefaultComboBoxModel(listarModelos().toArray());
+            comboBox_Modelo.setModel(model);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(DlgCadastroAeronave.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_formComponentShown
 
     /**

@@ -1,7 +1,8 @@
 package Modelo;
 
-import Persistencia.MyDatabaseOperations;
+import Persistencia.AeronaveDAO;
 import java.sql.SQLException;
+import java.util.Date;
 
 /**
  *
@@ -11,12 +12,12 @@ public class Aeronave {
 
     private int id_aeronave;
     private int cod;
-    private String dataAquisicao;
-    private String dataAposentadoriao;
+    private Date dataAquisicao;
+    private Date dataAposentadoriao;
     private boolean emAtividade;
     private Modelo modelo;
 
-    public Aeronave(int cod, String dataAquisicao, String dataAposentadoriao, boolean emAtividade, Modelo modelo) {
+    public Aeronave(int cod, Date dataAquisicao, Date dataAposentadoriao, boolean emAtividade, Modelo modelo) {
         this.cod = cod;
         this.dataAquisicao = dataAquisicao;
         this.dataAposentadoriao = dataAposentadoriao;
@@ -40,19 +41,19 @@ public class Aeronave {
         this.cod = cod;
     }
 
-    public String getDataAquisicao() {
+    public Date getDataAquisicao() {
         return dataAquisicao;
     }
 
-    public void setDataAquisicao(String dataAquisicao) {
+    public void setDataAquisicao(Date dataAquisicao) {
         this.dataAquisicao = dataAquisicao;
     }
 
-    public String getDataAposentadoriao() {
+    public Date getDataAposentadoriao() {
         return dataAposentadoriao;
     }
 
-    public void setDataAposentadoriao(String dataAposentadoriao) {
+    public void setDataAposentadoriao(Date dataAposentadoriao) {
         this.dataAposentadoriao = dataAposentadoriao;
     }
 
@@ -73,7 +74,7 @@ public class Aeronave {
     }
 
     public void salvarAeronave() throws SQLException, ClassNotFoundException {
-        this.id_aeronave = MyDatabaseOperations.inserirAeronave(this);
+        this.id_aeronave = AeronaveDAO.inserirAeronave(this);
     }
 
     public boolean consultarExistenciaVoo() {

@@ -12,7 +12,7 @@ public class MyConnection {
 
         String server = "localhost:5432";
         String login = "postgres";
-        String password = "1234";
+        String password = "123";
         String dataBase = "DB_Companhia_Aerea";
         String url = "jdbc:postgresql://" + server + "/" + dataBase;
 

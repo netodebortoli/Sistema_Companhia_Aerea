@@ -1,12 +1,11 @@
 package Interface;
 
 import Modelo.Fabricante;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author SAMSUNG
- */
 public class DlgCadastroFabricante extends javax.swing.JDialog {
 
     /**
@@ -135,11 +134,15 @@ public class DlgCadastroFabricante extends javax.swing.JDialog {
             String paisOrigem = txtPais.getText();
 
             Fabricante objFabricante = new Fabricante(nomeFabricante, paisOrigem);
-            objFabricante.salvarFabricante();
+            try {
+                objFabricante.salvarFabricante();
+                JOptionPane.showMessageDialog(this, "Fabricante cadastrado com sucesso.");
+                txtNomeFabricante.setText("");
+                txtPais.setText("");
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(DlgCadastroFabricante.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-            JOptionPane.showMessageDialog(this, "Fabricante cadastrado com sucesso.");
-            txtNomeFabricante.setText("");
-            txtPais.setText("");
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
