@@ -1,12 +1,12 @@
 package Persistencia;
 
 import Modelo.*;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,20 +15,12 @@ public class MyDatabaseOperations {
     public static int inserirFabricante(Fabricante fbr) {
         try {
 
-            MyConnection myConexao = executarConexao();
+            MyConnectionBD.obterConexao().setAutoCommit(false);
 
-            Connection connection = myConexao.getConnection();
-
-            connection.setAutoCommit(false);
-
-            String sql;
+            String sql = "INSERT INTO FABRICANTE (nome, pais_origem) VALUES (?, ?)";
             int id = 0;
-            // sql = "INSERT INTO FABRICANTE(id_fabricante, nome, pais_origem) VALUES ( '" + fbr.getNome() + "','" + fbr.getPaisOrigem() + "')";
 
-            sql = "INSERT INTO FABRICANTE (nome, pais_origem) VALUES (?, ?)";
-
-            //Statement stm = connection.createStatement();
-            PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stm = MyConnectionBD.obterConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             stm.setString(1, fbr.getNome());
             stm.setString(2, fbr.getPaisOrigem());
@@ -36,13 +28,13 @@ public class MyDatabaseOperations {
             stm.execute();
 
             ResultSet rs = stm.getGeneratedKeys();
+
             if (rs.next()) {
                 id = rs.getInt(1);
             }
+
             stm.close();
-            connection.commit();
-            connection.close();
-            myConexao.closeConnection();
+
             return id;
 
         } catch (ClassNotFoundException | SQLException ex) {
@@ -51,90 +43,83 @@ public class MyDatabaseOperations {
         }
     }
 
-    public static void inserirModelo(Modelo mdl) {
+    public static int inserirModelo(Modelo mdl) {
         try {
 
-            MyConnection myConexao = executarConexao();
+            MyConnectionBD.obterConexao().setAutoCommit(false);
 
-            Connection connection = myConexao.getConnection();
+            String sql = "INSERT INTO MODELO(nome, capacidadePassageiros, capacidadeCarga, autonomia, id_fabricante) VALUES (?, ?, ?, ?, ?)";
+            int id = 0;
 
-            connection.setAutoCommit(false);
+            PreparedStatement stm = MyConnectionBD.obterConexao().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
-            String sql = "";
+            stm.setString(1, mdl.getNome());
+            stm.setInt(2, mdl.getCapacidadePassageiros());
+            stm.setInt(3, mdl.getCapacidadeCarga());
+            stm.setInt(4, mdl.getAutonomia());
+            stm.setInt(5, mdl.getFabricante().getId_fabricante());
 
-            sql = "INSERT INTO MODELO(nome, capacidadePassageiros, capacidadeCarga, autonomia, id_fabricante) VALUES ('"
-                    + mdl.getNome() + "','"
-                    + mdl.getCapacidadePassageiros() + "','"
-                    + mdl.getCapacidadeCarga() + "','"
-                    + mdl.getAutonomia() + "','"
-                    + mdl.getFabricante().getId_fabricante() + "')";
+            stm.execute();
 
-            Statement stm = connection.createStatement();
+            ResultSet rs = stm.getGeneratedKeys();
 
-            stm.executeUpdate(sql);
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
 
             stm.close();
-            connection.commit();
-            connection.close();
-            myConexao.closeConnection();
+
+            return id;
 
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
         }
     }
 
-    public static void inserirAeronave(Aeronave aero) {
+    public static int inserirAeronave(Aeronave aero) {
         try {
 
-            MyConnection myConexao = executarConexao();
+            MyConnectionBD.conexao.setAutoCommit(false);
 
-            Connection connection = myConexao.getConnection();
+            String sql = "INSERT INTO AERONAVE(codigo, dataAquisicao, emAtividade, id_modelo) VALUES (?, ?, ?, ?)";
+            int id = 0;
 
-            connection.setAutoCommit(false);
+            PreparedStatement stm = MyConnectionBD.obterConexao().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
-            String sql = "";
+            stm.setInt(1, aero.getCod());
+            stm.setString(2, aero.getDataAquisicao());
+            stm.setBoolean(3, aero.isEmAtividade());
+            stm.setInt(4, aero.getModelo().getId_modelo());
 
-            sql = "INSERT INTO AERONAVE(codigo, dataAquisicao, emAtividade, id_modelo) VALUES ('"
-                    + aero.getCod() + "','"
-                    + aero.getDataAquisicao() + "','"
-                    + aero.isEmAtividade() + "','"
-                    + aero.getModelo().getId_modelo() + "')";
+            stm.execute();
 
-            Statement stm = connection.createStatement();
+            ResultSet rs = stm.getGeneratedKeys();
 
-            stm.executeUpdate(sql);
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
 
             stm.close();
-            connection.commit();
-            connection.close();
-            myConexao.closeConnection();
+
+            return id;
 
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
         }
     }
 
-    public static MyConnection executarConexao() {
-
-        MyConnection myConnection = MyConnection.createMyConnection();
-        myConnection.setDriver("org.postgresql.Driver");
-        myConnection.setUrl("jdbc:postgresql://localhost:5432/");
-        myConnection.setDatabaseName("DB_Companhia_Aerea");
-        myConnection.setUser("postgres");
-        myConnection.setPassword("1234");
-
-        return myConnection;
-    }
-
-    public static Vector getAllFabricantes() {
+    public static List<Fabricante> listarFabricantes() {
 
         try {
-            Vector fabricantes = new Vector();
-            MyConnection myConexao = executarConexao();
-            Connection connection = myConexao.getConnection();
+
+            List<Fabricante> fabricantes = new ArrayList();
 
             String sql = "SELECT * FROM FABRICANTE;";
-            Statement stm = connection.createStatement();
+
+            Statement stm = MyConnectionBD.obterConexao().createStatement();
+
             ResultSet rs = stm.executeQuery(sql);
 
             while (rs.next()) {
@@ -142,25 +127,26 @@ public class MyDatabaseOperations {
                 fbr.setId_fabricante(rs.getInt(1));
                 fabricantes.add(fbr);
             }
-            rs.close();
-            stm.close();
+
             return fabricantes;
 
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return null;
     }
-    
-        public static Vector getAllModelos() {
+
+    public static List<Modelo> listarModelos() {
 
         try {
-            Vector modelos = new Vector();
-            MyConnection myConexao = executarConexao();
-            Connection connection = myConexao.getConnection();
+
+            List<Modelo> modelos = new ArrayList();
 
             String sql = "SELECT * FROM MODELO;";
-            Statement stm = connection.createStatement();
+
+            Statement stm = MyConnectionBD.obterConexao().createStatement();
+
             ResultSet rs = stm.executeQuery(sql);
 
             while (rs.next()) {
@@ -168,13 +154,13 @@ public class MyDatabaseOperations {
                 mdl.setId_modelo(rs.getInt(1));
                 modelos.add(mdl);
             }
-            rs.close();
-            stm.close();
+
             return modelos;
 
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return null;
     }
 }

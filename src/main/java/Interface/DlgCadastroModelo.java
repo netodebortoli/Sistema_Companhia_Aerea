@@ -4,9 +4,8 @@ import Modelo.Fabricante;
 import Modelo.Modelo;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import static Persistencia.MyDatabaseOperations.getAllFabricantes;
-import java.util.List;
-import java.util.Vector;
+import static Persistencia.MyDatabaseOperations.listarFabricantes;
+
 /**
  *
  * @author SAMSUNG
@@ -19,8 +18,6 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
     public DlgCadastroModelo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        DefaultComboBoxModel model = new DefaultComboBoxModel( getAllFabricantes() );
-        comboBox_Fabricante.setModel(model);
     }
 
     /**
@@ -50,6 +47,11 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Modelo");
         setResizable(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         tituloCadastroModelo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         tituloCadastroModelo.setForeground(new java.awt.Color(0, 0, 153));
@@ -209,7 +211,7 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
 
         if (validarDadosCadastroModelo()) {
-            
+
             String nome = textFieldNomeModelo.getText();
             int capacidadePassageiros = Integer.parseInt(textFieldCapacidadePassageiros.getText());
             int capacidadeCarga = Integer.parseInt(textFieldCapacidadeCarga.getText());
@@ -219,13 +221,18 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
             Modelo objModelo = new Modelo(nome, capacidadePassageiros, capacidadeCarga, autonomia, fbr);
             objModelo.salvarModelo();
 
-            JOptionPane.showMessageDialog(this, "Modelo cadastrado com sucesso. id = " +objModelo.getId_modelo());
+            JOptionPane.showMessageDialog(this, "Modelo cadastrado com sucesso");
             textFieldNomeModelo.setText("");
             textFieldCapacidadePassageiros.setText("");
             textFieldCapacidadeCarga.setText("");
             textFieldAutonomia.setText("");
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        DefaultComboBoxModel model = new DefaultComboBoxModel(listarFabricantes().toArray());
+        comboBox_Fabricante.setModel(model);
+    }//GEN-LAST:event_formComponentShown
 
     /**
      * @param args the command line arguments

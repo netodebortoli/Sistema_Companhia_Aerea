@@ -72,7 +72,7 @@ public class Aeronave {
     }
 
     public void salvarAeronave() {
-        MyDatabaseOperations.inserirAeronave(this);
+        this.id_aeronave = MyDatabaseOperations.inserirAeronave(this);
     }
 
     public boolean consultarExistenciaVoo() {

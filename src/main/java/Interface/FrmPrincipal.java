@@ -1,5 +1,10 @@
 package Interface;
 
+import Persistencia.MyConnectionBD;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author SAMSUNG
@@ -10,8 +15,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
      * Creates new form FrmPrincipal
      */
     public FrmPrincipal() {
-        initComponents();
-    }   
+        try {
+            initComponents();
+            MyConnectionBD.obterConexao();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(-1);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

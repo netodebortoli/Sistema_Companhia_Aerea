@@ -72,7 +72,7 @@ public class Modelo {
     }
 
     public void salvarModelo() {   
-        MyDatabaseOperations.inserirModelo(this);
+       this.id_modelo = MyDatabaseOperations.inserirModelo(this);
     }
 
     @Override

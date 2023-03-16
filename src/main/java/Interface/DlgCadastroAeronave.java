@@ -2,9 +2,9 @@ package Interface;
 
 import Modelo.Modelo;
 import Modelo.Aeronave;
-import static Persistencia.MyDatabaseOperations.getAllModelos;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import static Persistencia.MyDatabaseOperations.listarModelos;
 
 /**
  *
@@ -18,8 +18,6 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
     public DlgCadastroAeronave(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        DefaultComboBoxModel model = new DefaultComboBoxModel( getAllModelos());
-        comboBox_Modelo.setModel(model);
     }
 
     /**
@@ -45,6 +43,11 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Aeronave");
         setResizable(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         tituloCadastroAeronave.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         tituloCadastroAeronave.setForeground(new java.awt.Color(0, 0, 153));
@@ -159,22 +162,22 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "A seleção de um modelo é obrigatório.");
             valido = false;
         }
-        if ( txtDtAquisicao.getText().contains(date) ) {
+        if (txtDtAquisicao.getText().contains(date)) {
             JOptionPane.showMessageDialog(this, "O preenchimento da data de aquisição é obrigatório.");
             valido = false;
         }
-      
+
         return valido;
     }
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
 
-        if ( validarDadosCadastroAeronave() ) {
+        if (validarDadosCadastroAeronave()) {
 
             int codigo = Integer.parseInt(textFieldCodigoAeronave.getText());
             String dataAquisicao = txtDtAquisicao.getText();
             Modelo mdl = (Modelo) comboBox_Modelo.getSelectedItem();
-        
+
             Aeronave objAeronave = new Aeronave(codigo, dataAquisicao, null, true, mdl);
             objAeronave.salvarAeronave();
 
@@ -183,6 +186,11 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
             txtDtAquisicao.setText("");
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        DefaultComboBoxModel model = new DefaultComboBoxModel(listarModelos().toArray());
+        comboBox_Modelo.setModel(model);
+    }//GEN-LAST:event_formComponentShown
 
     /**
      * @param args the command line arguments
