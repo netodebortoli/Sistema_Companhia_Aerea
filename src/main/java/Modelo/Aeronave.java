@@ -1,6 +1,7 @@
 package Modelo;
 
 import Persistencia.MyDatabaseOperations;
+import java.sql.SQLException;
 
 /**
  *
@@ -71,7 +72,7 @@ public class Aeronave {
         this.modelo = modelo;
     }
 
-    public void salvarAeronave() {
+    public void salvarAeronave() throws SQLException, ClassNotFoundException {
         this.id_aeronave = MyDatabaseOperations.inserirAeronave(this);
     }
 

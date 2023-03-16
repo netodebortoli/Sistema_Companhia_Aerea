@@ -1,6 +1,6 @@
 package Interface;
 
-import Persistencia.MyConnectionBD;
+import Persistencia.MyConnection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +17,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public FrmPrincipal() {
         try {
             initComponents();
-            MyConnectionBD.obterConexao();
+            MyConnection.obterConexao();
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             System.exit(-1);

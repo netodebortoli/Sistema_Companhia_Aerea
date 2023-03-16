@@ -1,6 +1,7 @@
 package Modelo;
 
 import Persistencia.MyDatabaseOperations;
+import java.sql.SQLException;
 
 /**
  *
@@ -41,7 +42,7 @@ public class Fabricante {
         this.paisOrigem = paisOrigem;
     }
 
-     public void salvarFabricante() {
+     public void salvarFabricante() throws SQLException, ClassNotFoundException {
         this.id_fabricante = MyDatabaseOperations.inserirFabricante(this);
     }
 
