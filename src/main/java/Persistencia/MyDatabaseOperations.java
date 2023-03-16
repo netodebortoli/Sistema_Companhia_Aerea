@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -118,9 +120,9 @@ public class MyDatabaseOperations {
         MyConnection myConnection = MyConnection.createMyConnection();
         myConnection.setDriver("org.postgresql.Driver");
         myConnection.setUrl("jdbc:postgresql://localhost:5432/");
-        myConnection.setDatabaseName("DB_Companhia Aerea");
+        myConnection.setDatabaseName("DB_Companhia_Aerea");
         myConnection.setUser("postgres");
-        myConnection.setPassword("1234");
+        myConnection.setPassword("123");
 
         return myConnection;
     }
@@ -187,6 +189,59 @@ public class MyDatabaseOperations {
             Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    public static List<Fabricante> getAllFabricantes() {
+
+        try {
+            List<Fabricante> fabricantes = new ArrayList<>();
+            MyConnection myConexao = executarConexao();
+            Connection connection = myConexao.getConnection();
+
+            String sql = "SELECT nome FROM Fabricante;";
+            Statement stm = connection.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+
+            while (rs.next()) {
+                Fabricante fabricante = new Fabricante(rs.getString("nome"), rs.getString("pais_origem"));
+                fabricante.setId_fabricante(rs.getInt("id_fabricante"));
+                fabricantes.add(fabricante);
+            }
+            rs.close();
+            stm.close();
+            return fabricantes;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public static ArrayList<String> getAllFabricantesName() {
+
+        try {
+            ArrayList<String> nomes;
+            MyConnection myConexao = executarConexao();
+            Connection connection = myConexao.getConnection();
+
+            String sql = "SELECT nome FROM Fabricante;";
+
+            //Statement stm = connection.createStatement();
+            Statement stm = connection.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+
+            if (rs.next()) {
+                nomes = new ArrayList<String>((ArrayList<String>) rs.getArray(2));
+                return nomes;
+            }
+
+            rs.close();
+            stm.close();
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MyDatabaseOperations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public static void selectFabricanteOuModelo(String nomeClasse) {

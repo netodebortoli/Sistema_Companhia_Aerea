@@ -2,8 +2,10 @@ package Interface;
 
 import Modelo.Fabricante;
 import Modelo.Modelo;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-
+import static Persistencia.MyDatabaseOperations.getAllFabricantes;
+import java.util.Vector;
 /**
  *
  * @author SAMSUNG
@@ -16,6 +18,8 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
     public DlgCadastroModelo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        DefaultComboBoxModel model = new DefaultComboBoxModel((Vector) getAllFabricantes());
+        comboBox_Fabricante.setModel(model);
     }
 
     /**
