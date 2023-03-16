@@ -74,4 +74,11 @@ public class Modelo {
     public void salvarModelo() {   
         MyDatabaseOperations.inserirModelo(this);
     }
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
+    
+    
 }

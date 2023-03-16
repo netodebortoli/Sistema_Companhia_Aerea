@@ -44,4 +44,9 @@ public class Fabricante {
      public void salvarFabricante() {
         this.id_fabricante = MyDatabaseOperations.inserirFabricante(this);
     }
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
 }

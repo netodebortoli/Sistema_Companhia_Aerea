@@ -2,6 +2,8 @@ package Interface;
 
 import Modelo.Modelo;
 import Modelo.Aeronave;
+import static Persistencia.MyDatabaseOperations.getAllModelos;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +18,8 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
     public DlgCadastroAeronave(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        DefaultComboBoxModel model = new DefaultComboBoxModel( getAllModelos());
+        comboBox_Modelo.setModel(model);
     }
 
     /**
@@ -145,6 +149,7 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
     private boolean validarDadosCadastroAeronave() {
 
         boolean valido = true;
+        String date = "  /  /   ";
 
         if (textFieldCodigoAeronave.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(this, "O preenchimento do código da aeronave é obrigatório.");
@@ -154,11 +159,11 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "A seleção de um modelo é obrigatório.");
             valido = false;
         }
-        if (txtDtAquisicao.getText().trim().length() == 0) {
+        if ( txtDtAquisicao.getText().contains(date) ) {
             JOptionPane.showMessageDialog(this, "O preenchimento da data de aquisição é obrigatório.");
             valido = false;
         }
-
+      
         return valido;
     }
 
@@ -169,7 +174,7 @@ public class DlgCadastroAeronave extends javax.swing.JDialog {
             int codigo = Integer.parseInt(textFieldCodigoAeronave.getText());
             String dataAquisicao = txtDtAquisicao.getText();
             Modelo mdl = (Modelo) comboBox_Modelo.getSelectedItem();
-
+        
             Aeronave objAeronave = new Aeronave(codigo, dataAquisicao, null, true, mdl);
             objAeronave.salvarAeronave();
 

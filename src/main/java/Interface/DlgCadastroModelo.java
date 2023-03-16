@@ -5,6 +5,7 @@ import Modelo.Modelo;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import static Persistencia.MyDatabaseOperations.getAllFabricantes;
+import java.util.List;
 import java.util.Vector;
 /**
  *
@@ -18,7 +19,7 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
     public DlgCadastroModelo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        DefaultComboBoxModel model = new DefaultComboBoxModel((Vector) getAllFabricantes());
+        DefaultComboBoxModel model = new DefaultComboBoxModel( getAllFabricantes() );
         comboBox_Fabricante.setModel(model);
     }
 
@@ -218,7 +219,7 @@ public class DlgCadastroModelo extends javax.swing.JDialog {
             Modelo objModelo = new Modelo(nome, capacidadePassageiros, capacidadeCarga, autonomia, fbr);
             objModelo.salvarModelo();
 
-            JOptionPane.showMessageDialog(this, "Modelo cadastrado com sucesso.");
+            JOptionPane.showMessageDialog(this, "Modelo cadastrado com sucesso. id = " +objModelo.getId_modelo());
             textFieldNomeModelo.setText("");
             textFieldCapacidadePassageiros.setText("");
             textFieldCapacidadeCarga.setText("");
